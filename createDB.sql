@@ -89,4 +89,16 @@ CREATE TABLE `tag`(
     REFERENCES `topic` (`topic_name`)
 );
 
+CREATE TABLE `follow_topic`(
+  `username` VARCHAR(255) NOT NULL,
+  `topic_name` VARCHAR(255) NOT NULL,
+  CONSTRAINT `PK_follow_topic` PRIMARY KEY (`username`, `topic_name`),
+  FOREIGN KEY (`username`)
+    REFERENCES `user` (`username`),
+  FOREIGN KEY (`topic_name`)
+    REFERENCES `topic` (`topic_name`)
+);
+
+
+
 
