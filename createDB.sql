@@ -27,7 +27,7 @@ CREATE TABLE `follow_user`(
     REFERENCES `user` (`username`),
   FOREIGN KEY (`followerId`)
     REFERENCES `user` (`username`),
-  CONSTRAINT PK_follow_user PRIMARY KEY (`followeeId`, `followerId`)
+  CONSTRAINT `PK_follow_user` PRIMARY KEY (`followeeId`, `followerId`)
 );
 
 
@@ -43,11 +43,11 @@ CREATE TABLE `group_member`(
     REFERENCES `group` (`groupId`),
   FOREIGN KEY (`member_name`)
     REFERENCES `user` (`username`),
-  CONSTRAINT PK_group_member PRIMARY KEY (`member_name`, `groupId`)
+  CONSTRAINT `PK_group_member` PRIMARY KEY (`member_name`, `groupId`)
 );
 
 
-CREATE TABLE `posts`(
+CREATE TABLE `post`(
   `postId` INT NOT NULL PRIMARY KEY,
   `num_likes` INT NULL DEFAULT 0,
   `num_dislikes` INT NULL DEFAULT 0,
@@ -63,3 +63,30 @@ CREATE TABLE `posts`(
   FOREIGN KEY (`username`)
     REFERENCES `user` (`username`)
 );
+
+CREATE TABLE `user_read`(
+  `postId` INT NOT NULL,
+  `username` VARCHAR(255) NOT NULL,
+  CONSTRAINT `PK_user_read` PRIMARY KEY (`postId`, `username`),
+  FOREIGN KEY (`postId`)
+    REFERENCES `post` (`postId`),
+  FOREIGN KEY (`username`)
+    REFERENCES `user` (`username`)
+);
+
+
+CREATE TABLE `topic`(
+  `topic_name` VARCHAR(255) NOT NULL PRIMARY KEY
+);
+
+CREATE TABLE `tag`(
+  `postId` INT NOT NULL,
+  `topic_name` VARCHAR(255) NOT NULL,
+  CONSTRAINT `PK_tag` PRIMARY KEY (`postId`, `topic_name`),
+  FOREIGN KEY (`postId`)
+    REFERENCES `post` (`postId`),
+  FOREIGN KEY (`topic_name`)
+    REFERENCES `topic` (`topic_name`)
+);
+
+
