@@ -10,3 +10,9 @@ CREATE TABLE `post_images`(
 CREATE TABLE `post_links`(
   `post_link` VARCHAR(255) NOT NULL PRIMARY KEY
 );
+
+CREATE TABLE `follow_user`(
+  `followeeId` INT NOT NULL,
+  `followerId` INT NOT NULL,
+  CONSTRAINT PK_follow_user PRIMARY KEY (`followeeId`, `followerId`)
+);
