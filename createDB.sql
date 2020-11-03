@@ -3,6 +3,14 @@ CREATE DATABASE `social_network`;
 USE `social_network`;
 
 
+CREATE TABLE `user`(
+  `username` VARCHAR(255) NOT NULL PRIMARY KEY,
+  `firstname` VARCHAR(255) NOT NULL,
+  `lastname` VARCHAR(255) NOT NULL,
+  `gender` CHAR(1) NOT NULL,
+  `birth_date` DATE NULL
+);
+
 
 CREATE TABLE `post_images`(
   `post_image` VARCHAR(255) NOT NULL PRIMARY KEY
@@ -13,25 +21,30 @@ CREATE TABLE `post_links`(
 );
 
 CREATE TABLE `follow_user`(
-  `followeeId` INT NOT NULL,
-  `followerId` INT NOT NULL,
+  `followeeId` VARCHAR(255) NOT NULL,
+  `followerId` VARCHAR(255) NOT NULL,
+  FOREIGN KEY (`followeeId`)
+    REFERENCES `user` (`username`),
+  FOREIGN KEY (`followerId`)
+    REFERENCES `user` (`username`),
   CONSTRAINT PK_follow_user PRIMARY KEY (`followeeId`, `followerId`)
 );
 
-CREATE TABLE `group_member`(
-  `member_name` VARCHAR(255) NOT NULL,
-  `groupId` INT NOT NULL,
-  CONSTRAINT PK_group_member PRIMARY KEY (`member_name`, `groupId`)
-);
 
 CREATE TABLE `group`(
   `group_name` VARCHAR(255) NOT NULL,
   `groupId` INT NOT NULL PRIMARY KEY
 );
 
-ALTER TABLE `group_member`
-  ADD FOREIGN KEY (`groupId`)
-    REFERENCES `group` (`groupId`);
+CREATE TABLE `group_member`(
+  `member_name` VARCHAR(255) NOT NULL,
+  `groupId` INT NOT NULL,
+  FOREIGN KEY (`groupId`)
+    REFERENCES `group` (`groupId`),
+  FOREIGN KEY (`member_name`)
+    REFERENCES `user` (`username`),
+  CONSTRAINT PK_group_member PRIMARY KEY (`member_name`, `groupId`)
+);
 
 
 CREATE TABLE `posts`(
@@ -46,5 +59,7 @@ CREATE TABLE `posts`(
   FOREIGN KEY (`post_link`)
     REFERENCES `post_links` (`post_link`),
   FOREIGN KEY (`post_image`)
-    REFERENCES `post_images` (`post_image`)
+    REFERENCES `post_images` (`post_image`),
+  FOREIGN KEY (`username`)
+    REFERENCES `user` (`username`)
 );
