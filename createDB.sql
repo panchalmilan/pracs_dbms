@@ -16,3 +16,18 @@ CREATE TABLE `follow_user`(
   `followerId` INT NOT NULL,
   CONSTRAINT PK_follow_user PRIMARY KEY (`followeeId`, `followerId`)
 );
+
+CREATE TABLE `group_member`(
+  `member_name` VARCHAR(255) NOT NULL,
+  `groupId` INT NOT NULL,
+  CONSTRAINT PK_group_member PRIMARY KEY (`member_name`, `groupId`)
+);
+
+CREATE TABLE `group`(
+  `group_name` VARCHAR(255) NOT NULL,
+  `groupId` INT NOT NULL PRIMARY KEY
+);
+
+ALTER TABLE `group_member`
+  ADD FOREIGN KEY (`groupId`)
+      REFERENCES `group` (`groupId`);
