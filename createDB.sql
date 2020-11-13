@@ -27,9 +27,7 @@ CREATE TABLE `follow_user`(
     REFERENCES `user` (`username`),
   FOREIGN KEY (`followerId`)
     REFERENCES `user` (`username`),
-  CONSTRAINT `PK_follow_user` PRIMARY KEY (`followeeId`, `followerId`)
 );
-
 
 CREATE TABLE `group`(
   `group_name` VARCHAR(255) NOT NULL,
