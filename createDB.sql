@@ -26,7 +26,7 @@ CREATE TABLE `follow_user`(
   FOREIGN KEY (`followeeId`)
     REFERENCES `user` (`username`),
   FOREIGN KEY (`followerId`)
-    REFERENCES `user` (`username`),
+    REFERENCES `user` (`username`)
 );
 
 CREATE TABLE `group`(
